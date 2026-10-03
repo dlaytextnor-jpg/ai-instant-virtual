@@ -2,163 +2,309 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Virtuals AI</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#080808;
- color:white
+  font-family:Arial,Helvetica,sans-serif;
+  background:#080b14;
+  color:white;
+  min-height:100vh;
 }
+
 header{
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:18px 6%;
- border-bottom:1px solid #292929;
- position:sticky;
- top:0;
- background:#080808;
- z-index:5
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+  background:#0e1220;
+  border-bottom:1px solid #242a3b;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
+
 .logo{
- width:48px;
- height:48px;
- border-radius:14px;
- display:flex;
- align-items:center;
- justify-content:center;
- background:linear-gradient(145deg,#ff4848,#b91414);
- font-weight:bold;
- font-size:20px
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:22px;
+  font-weight:bold;
 }
+
+.logo-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#ff3d32,#ff7a18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
 nav{
- display:flex;
- gap:25px;
- align-items:center
+  display:flex;
+  gap:25px;
 }
+
 nav a{
- color:#ddd;
- text-decoration:none
+  color:#aeb5c8;
+  text-decoration:none;
+  font-size:14px;
 }
-nav a.active{
- background:#e52d27;
- padding:12px 20px;
- border-radius:25px;
- color:white
+
+nav a.active,
+nav a:hover{
+  color:white;
 }
-.signout{
- border:1px solid #555;
- padding:10px 18px;
- border-radius:25px
+
+.hero{
+  text-align:center;
+  padding:55px 20px 25px;
 }
-main{
- max-width:1000px;
- margin:auto;
- padding:45px 20px
+
+.badge{
+  display:inline-block;
+  background:#171d2e;
+  border:1px solid #30384e;
+  padding:8px 15px;
+  border-radius:30px;
+  color:#ff654b;
+  font-size:13px;
+  margin-bottom:18px;
 }
-.hero{text-align:center}
+
 .hero h1{
- font-size:clamp(36px,7vw,64px);
- margin:10px 0
+  font-size:clamp(34px,6vw,62px);
+  margin-bottom:15px;
 }
+
+.hero h1 span{
+  color:#ff543c;
+}
+
 .hero p{
- color:#aaa;
- font-size:19px;
- line-height:1.6
+  color:#aab1c2;
+  max-width:650px;
+  margin:auto;
+  line-height:1.6;
 }
+
+.container{
+  width:min(1050px,92%);
+  margin:30px auto 70px;
+}
+
 .card{
- margin-top:35px;
- background:#171717;
- border:1px solid #34343a;
- border-radius:25px;
- padding:35px;
- text-align:center
+  background:linear-gradient(145deg,#111625,#0d111d);
+  border:1px solid #252c3e;
+  border-radius:22px;
+  padding:30px;
+  box-shadow:0 15px 50px rgba(0,0,0,.25);
+  margin-bottom:25px;
 }
-.robot{
- width:105px;
- height:105px;
- margin:auto;
- border-radius:25px;
- background:linear-gradient(145deg,#ff4b43,#c91f1f);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:48px
+
+.card h2{
+  margin-bottom:8px;
 }
-.card h2{font-size:28px}
-.card p{color:#ff7777;font-size:18px}
-.upload{
- display:block;
- margin:25px auto;
- max-width:350px;
- padding:16px;
- background:#e6322b;
- border-radius:12px;
- cursor:pointer;
- font-weight:bold
+
+.subtitle{
+  color:#8e96aa;
+  font-size:14px;
+  margin-bottom:25px;
 }
-input[type=file]{display:none}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+label{
+  display:block;
+  color:#aeb5c8;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  background:#080c15;
+  border:1px solid #30384d;
+  border-radius:12px;
+  color:white;
+  outline:none;
+  font-size:15px;
+}
+
+input:focus{
+  border-color:#ff553d;
+}
+
 button{
- border:0;
- padding:15px 30px;
- border-radius:12px;
- background:#fff;
- color:#111;
- font-weight:bold;
- cursor:pointer
+  border:0;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
 }
+
+.generate{
+  width:100%;
+  margin-top:22px;
+  padding:16px;
+  border-radius:13px;
+  background:linear-gradient(90deg,#ff432f,#ff711d);
+  font-size:16px;
+  transition:.2s;
+}
+
+.generate:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.1);
+}
+
 .result{
- display:none;
- margin-top:25px;
- padding:25px;
- background:#0d0d0d;
- border-radius:18px
+  display:none;
+  margin-top:25px;
 }
+
+.result.show{
+  display:block;
+}
+
+.prediction-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.ai-status{
+  color:#62e6a7;
+  font-size:13px;
+}
+
+.score{
+  text-align:center;
+  background:#080c15;
+  border:1px solid #2a3245;
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:18px;
+}
+
+.score-value{
+  font-size:42px;
+  font-weight:bold;
+  color:#ff694d;
+  margin:8px 0;
+}
+
+.probabilities{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
 .prob{
- margin:15px 0;
- text-align:left
+  background:#080c15;
+  border:1px solid #293145;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
 }
+
+.prob .percent{
+  font-size:27px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.prob small{
+  color:#8992a7;
+}
+
 .bar{
- height:10px;
- background:#333;
- border-radius:20px;
- overflow:hidden
+  height:7px;
+  background:#252c3d;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:12px;
 }
-.fill{
- height:100%;
- background:#e6322b
+
+.bar span{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#ff4330,#ff8a25);
 }
-.plans{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:15px;
- margin-top:25px
+
+.history{
+  margin-top:15px;
 }
-.plan{
- background:#171717;
- border:1px solid #333;
- padding:25px;
- border-radius:18px
+
+.history-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  border-bottom:1px solid #22293a;
+  color:#c8cede;
 }
-.plan h3{font-size:22px}
-.price{
- font-size:28px;
- font-weight:bold;
- color:#ff5555
+
+.history-item:last-child{
+  border-bottom:0;
 }
+
+.empty{
+  color:#777f94;
+  text-align:center;
+  padding:20px;
+}
+
+.disclaimer{
+  color:#737b8f;
+  font-size:12px;
+  line-height:1.6;
+  margin-top:20px;
+  text-align:center;
+}
+
 footer{
- text-align:center;
- color:#777;
- padding:35px
+  border-top:1px solid #202637;
+  padding:30px 20px;
+  text-align:center;
+  color:#727a8d;
+  font-size:13px;
 }
+
 @media(max-width:700px){
- nav a:not(.active),.signout{display:none}
- .plans{grid-template-columns:1fr}
- .card{padding:25px 18px}
+  nav{
+    display:none;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .probabilities{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    padding:20px;
+  }
 }
 </style>
 </head>
@@ -166,121 +312,376 @@ footer{
 <body>
 
 <header>
-<div class="logo">IV</div>
+  <div class="logo">
+    <div class="logo-icon">🤖</div>
+    Virtuals AI
+  </div>
 
-<nav>
-<a class="active" href="#">Games</a>
-<a href="#plans">Plans</a>
-<a href="#">Profile</a>
-<a class="signout" href="#">Sign out</a>
-</nav>
+  <nav>
+    <a href="#" class="active">Games</a>
+    <a href="#plans">Plans</a>
+    <a href="#history">History</a>
+  </nav>
 </header>
 
-<main>
-
 <section class="hero">
-<h1>Instant Virtuals Football</h1>
-<p>
-Upload a screenshot and let Virtuals AI analyze
-your virtual football match.
-</p>
+  <div class="badge">⚡ AI STATISTICAL ENGINE</div>
+
+  <h1>Virtual Football <span>Predictions</span></h1>
+
+  <p>
+    Enter two teams and generate a statistical estimate based on
+    simulated form, attacking strength and defensive strength.
+  </p>
 </section>
 
-<section class="card">
+<main class="container">
 
-<div class="robot">🤖</div>
+  <section class="card">
 
-<h2>Play Virtuals AI</h2>
+    <h2>Play Virtuals AI</h2>
 
-<p>Upload your virtual football screenshot</p>
+    <p class="subtitle">
+      Enter the match information below.
+    </p>
 
-<label class="upload">
-📸 Upload Screenshot
-<input type="file" accept="image/*" onchange="analyze()">
-</label>
+    <div class="form-grid">
 
-<button onclick="demo()">Generate AI Prediction</button>
+      <div>
+        <label>Home Team</label>
+        <input id="homeTeam" placeholder="e.g. Manchester United">
+      </div>
 
-<div class="result" id="result">
+      <div>
+        <label>Away Team</label>
+        <input id="awayTeam" placeholder="e.g. Chelsea">
+      </div>
 
-<h2>AI Prediction</h2>
+      <div>
+        <label>Home Team Rating</label>
+        <input id="homeRating" type="number" min="1" max="100" value="70">
+      </div>
 
-<p id="prediction">HOME WIN</p>
+      <div>
+        <label>Away Team Rating</label>
+        <input id="awayRating" type="number" min="1" max="100" value="70">
+      </div>
 
-<div class="prob">
-<div>Home Win — 62%</div>
-<div class="bar">
-<div class="fill" style="width:62%"></div>
-</div>
-</div>
+    </div>
 
-<div class="prob">
-<div>Draw — 21%</div>
-<div class="bar">
-<div class="fill" style="width:21%"></div>
-</div>
-</div>
+    <button class="generate" onclick="generatePrediction()">
+      ⚡ Generate AI Prediction
+    </button>
 
-<div class="prob">
-<div>Away Win — 17%</div>
-<div class="bar">
-<div class="fill" style="width:17%"></div>
-</div>
-</div>
+    <div id="result" class="result">
 
-<p>Confidence: 62%</p>
+      <div class="prediction-top">
+        <h2>AI Analysis</h2>
+        <span class="ai-status">● Analysis complete</span>
+      </div>
 
-<small>
-Demo statistical prediction — not a guaranteed result.
-</small>
+      <div class="score">
 
-</div>
-</section>
+        <div id="matchName">Home vs Away</div>
 
-<section class="card" id="plans">
+        <div class="score-value" id="scorePrediction">
+          2 - 1
+        </div>
 
-<h2>Plans</h2>
+        <div style="color:#8d95a9">
+          Estimated score
+        </div>
 
-<div class="plans">
+      </div>
 
-<div class="plan">
-<h3>Gold</h3>
-<div class="price">$5</div>
-<p>Basic predictions</p>
-</div>
+      <div class="probabilities">
 
-<div class="plan">
-<h3>Platinum</h3>
-<div class="price">$10</div>
-<p>Advanced predictions</p>
-</div>
+        <div class="prob">
+          <small>HOME WIN</small>
+          <div class="percent" id="homePercent">40%</div>
+          <div class="bar">
+            <span id="homeBar"></span>
+          </div>
+        </div>
 
-<div class="plan">
-<h3>Diamond</h3>
-<div class="price">$20</div>
-<p>Premium AI analysis</p>
-</div>
+        <div class="prob">
+          <small>DRAW</small>
+          <div class="percent" id="drawPercent">30%</div>
+          <div class="bar">
+            <span id="drawBar"></span>
+          </div>
+        </div>
 
-</div>
+        <div class="prob">
+          <small>AWAY WIN</small>
+          <div class="percent" id="awayPercent">30%</div>
+          <div class="bar">
+            <span id="awayBar"></span>
+          </div>
+        </div>
 
-</section>
+      </div>
+
+      <p class="disclaimer">
+        These percentages are simulated statistical estimates for
+        demonstration purposes. They do not guarantee the result of
+        a football match.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="card" id="history">
+
+    <h2>Prediction History</h2>
+
+    <p class="subtitle">
+      Your recent predictions are stored in this browser.
+    </p>
+
+    <div id="historyList">
+      <div class="empty">
+        No predictions yet.
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="card" id="plans">
+
+    <h2>Plans</h2>
+
+    <p class="subtitle">
+      Example subscription layout for your future website.
+    </p>
+
+    <div class="probabilities">
+
+      <div class="prob">
+        <h3>Free</h3>
+        <div class="percent">$0</div>
+        <small>Basic predictions</small>
+      </div>
+
+      <div class="prob">
+        <h3>Pro</h3>
+        <div class="percent">$5</div>
+        <small>Advanced statistics</small>
+      </div>
+
+      <div class="prob">
+        <h3>Premium</h3>
+        <div class="percent">$20</div>
+        <small>Advanced analysis</small>
+      </div>
+
+    </div>
+
+  </section>
 
 </main>
 
+
 <footer>
-Virtuals AI © 2026
-<br><br>
-Predictions are statistical estimates and are not guaranteed.
+  Virtuals AI © 2026
+  <br><br>
+  Predictions are statistical estimates and are not guaranteed.
 </footer>
 
+
 <script>
-function demo(){
- document.getElementById("result").style.display="block";
+
+function generatePrediction(){
+
+  const home =
+    document.getElementById("homeTeam").value.trim() || "Home Team";
+
+  const away =
+    document.getElementById("awayTeam").value.trim() || "Away Team";
+
+  let homeRating =
+    Number(document.getElementById("homeRating").value) || 70;
+
+  let awayRating =
+    Number(document.getElementById("awayRating").value) || 70;
+
+  homeRating = Math.max(1,Math.min(100,homeRating));
+  awayRating = Math.max(1,Math.min(100,awayRating));
+
+  /*
+    Simple demonstration model.
+
+    Home advantage is added to the home rating.
+    A small random factor prevents every prediction
+    from producing exactly the same result.
+  */
+
+  const homeStrength =
+    homeRating + 7 + Math.random() * 10;
+
+  const awayStrength =
+    awayRating + Math.random() * 10;
+
+  const difference =
+    homeStrength - awayStrength;
+
+  let homeProbability =
+    40 + difference * 0.55;
+
+  let awayProbability =
+    32 - difference * 0.45;
+
+  let drawProbability =
+    100 - homeProbability - awayProbability;
+
+  homeProbability =
+    Math.max(10,Math.min(75,homeProbability));
+
+  awayProbability =
+    Math.max(10,Math.min(65,awayProbability));
+
+  drawProbability =
+    Math.max(10,Math.min(45,drawProbability));
+
+  const total =
+    homeProbability +
+    drawProbability +
+    awayProbability;
+
+  homeProbability =
+    Math.round(homeProbability / total * 100);
+
+  drawProbability =
+    Math.round(drawProbability / total * 100);
+
+  awayProbability =
+    100 - homeProbability - drawProbability;
+
+
+  const homeGoals =
+    Math.max(
+      0,
+      Math.min(
+        5,
+        Math.round(1.2 + (homeStrength - 50) / 25 + Math.random() * 1.4)
+      )
+    );
+
+  const awayGoals =
+    Math.max(
+      0,
+      Math.min(
+        5,
+        Math.round(1.0 + (awayStrength - 50) / 28 + Math.random() * 1.4)
+      )
+    );
+
+
+  document.getElementById("matchName").textContent =
+    home + " vs " + away;
+
+  document.getElementById("scorePrediction").textContent =
+    homeGoals + " - " + awayGoals;
+
+  document.getElementById("homePercent").textContent =
+    homeProbability + "%";
+
+  document.getElementById("drawPercent").textContent =
+    drawProbability + "%";
+
+  document.getElementById("awayPercent").textContent =
+    awayProbability + "%";
+
+  document.getElementById("homeBar").style.width =
+    homeProbability + "%";
+
+  document.getElementById("drawBar").style.width =
+    drawProbability + "%";
+
+  document.getElementById("awayBar").style.width =
+    awayProbability + "%";
+
+
+  document.getElementById("result").classList.add("show");
+
+
+  saveHistory(
+    home,
+    away,
+    homeGoals + " - " + awayGoals
+  );
 }
 
-function analyze(){
- alert("Screenshot uploaded. Click Generate AI Prediction.");
+
+function saveHistory(home,away,score){
+
+  const oldHistory =
+    JSON.parse(localStorage.getItem("virtualsHistory") || "[]");
+
+  oldHistory.unshift({
+    home:home,
+    away:away,
+    score:score
+  });
+
+  oldHistory.splice(10);
+
+  localStorage.setItem(
+    "virtualsHistory",
+    JSON.stringify(oldHistory)
+  );
+
+  displayHistory();
 }
+
+
+function displayHistory(){
+
+  const list =
+    document.getElementById("historyList");
+
+  const history =
+    JSON.parse(localStorage.getItem("virtualsHistory") || "[]");
+
+  if(history.length === 0){
+
+    list.innerHTML =
+      '<div class="empty">No predictions yet.</div>';
+
+    return;
+  }
+
+  list.innerHTML = history.map(item => {
+
+    return `
+      <div class="history-item">
+        <span>${escapeHtml(item.home)}
+        <strong> vs </strong>
+        ${escapeHtml(item.away)}</span>
+
+        <strong>${escapeHtml(item.score)}</strong>
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+function escapeHtml(text){
+
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+}
+
+
+displayHistory();
+
 </script>
 
 </body>
