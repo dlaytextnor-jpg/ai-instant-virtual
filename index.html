@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Virtuals AI</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#080808;
+ color:white
+}
+header{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:18px 6%;
+ border-bottom:1px solid #292929;
+ position:sticky;
+ top:0;
+ background:#080808;
+ z-index:5
+}
+.logo{
+ width:48px;
+ height:48px;
+ border-radius:14px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:linear-gradient(145deg,#ff4848,#b91414);
+ font-weight:bold;
+ font-size:20px
+}
+nav{
+ display:flex;
+ gap:25px;
+ align-items:center
+}
+nav a{
+ color:#ddd;
+ text-decoration:none
+}
+nav a.active{
+ background:#e52d27;
+ padding:12px 20px;
+ border-radius:25px;
+ color:white
+}
+.signout{
+ border:1px solid #555;
+ padding:10px 18px;
+ border-radius:25px
+}
+main{
+ max-width:1000px;
+ margin:auto;
+ padding:45px 20px
+}
+.hero{text-align:center}
+.hero h1{
+ font-size:clamp(36px,7vw,64px);
+ margin:10px 0
+}
+.hero p{
+ color:#aaa;
+ font-size:19px;
+ line-height:1.6
+}
+.card{
+ margin-top:35px;
+ background:#171717;
+ border:1px solid #34343a;
+ border-radius:25px;
+ padding:35px;
+ text-align:center
+}
+.robot{
+ width:105px;
+ height:105px;
+ margin:auto;
+ border-radius:25px;
+ background:linear-gradient(145deg,#ff4b43,#c91f1f);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:48px
+}
+.card h2{font-size:28px}
+.card p{color:#ff7777;font-size:18px}
+.upload{
+ display:block;
+ margin:25px auto;
+ max-width:350px;
+ padding:16px;
+ background:#e6322b;
+ border-radius:12px;
+ cursor:pointer;
+ font-weight:bold
+}
+input[type=file]{display:none}
+button{
+ border:0;
+ padding:15px 30px;
+ border-radius:12px;
+ background:#fff;
+ color:#111;
+ font-weight:bold;
+ cursor:pointer
+}
+.result{
+ display:none;
+ margin-top:25px;
+ padding:25px;
+ background:#0d0d0d;
+ border-radius:18px
+}
+.prob{
+ margin:15px 0;
+ text-align:left
+}
+.bar{
+ height:10px;
+ background:#333;
+ border-radius:20px;
+ overflow:hidden
+}
+.fill{
+ height:100%;
+ background:#e6322b
+}
+.plans{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px;
+ margin-top:25px
+}
+.plan{
+ background:#171717;
+ border:1px solid #333;
+ padding:25px;
+ border-radius:18px
+}
+.plan h3{font-size:22px}
+.price{
+ font-size:28px;
+ font-weight:bold;
+ color:#ff5555
+}
+footer{
+ text-align:center;
+ color:#777;
+ padding:35px
+}
+@media(max-width:700px){
+ nav a:not(.active),.signout{display:none}
+ .plans{grid-template-columns:1fr}
+ .card{padding:25px 18px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">IV</div>
+
+<nav>
+<a class="active" href="#">Games</a>
+<a href="#plans">Plans</a>
+<a href="#">Profile</a>
+<a class="signout" href="#">Sign out</a>
+</nav>
+</header>
+
+<main>
+
+<section class="hero">
+<h1>Instant Virtuals Football</h1>
+<p>
+Upload a screenshot and let Virtuals AI analyze
+your virtual football match.
+</p>
+</section>
+
+<section class="card">
+
+<div class="robot">🤖</div>
+
+<h2>Play Virtuals AI</h2>
+
+<p>Upload your virtual football screenshot</p>
+
+<label class="upload">
+📸 Upload Screenshot
+<input type="file" accept="image/*" onchange="analyze()">
+</label>
+
+<button onclick="demo()">Generate AI Prediction</button>
+
+<div class="result" id="result">
+
+<h2>AI Prediction</h2>
+
+<p id="prediction">HOME WIN</p>
+
+<div class="prob">
+<div>Home Win — 62%</div>
+<div class="bar">
+<div class="fill" style="width:62%"></div>
+</div>
+</div>
+
+<div class="prob">
+<div>Draw — 21%</div>
+<div class="bar">
+<div class="fill" style="width:21%"></div>
+</div>
+</div>
+
+<div class="prob">
+<div>Away Win — 17%</div>
+<div class="bar">
+<div class="fill" style="width:17%"></div>
+</div>
+</div>
+
+<p>Confidence: 62%</p>
+
+<small>
+Demo statistical prediction — not a guaranteed result.
+</small>
+
+</div>
+</section>
+
+<section class="card" id="plans">
+
+<h2>Plans</h2>
+
+<div class="plans">
+
+<div class="plan">
+<h3>Gold</h3>
+<div class="price">$5</div>
+<p>Basic predictions</p>
+</div>
+
+<div class="plan">
+<h3>Platinum</h3>
+<div class="price">$10</div>
+<p>Advanced predictions</p>
+</div>
+
+<div class="plan">
+<h3>Diamond</h3>
+<div class="price">$20</div>
+<p>Premium AI analysis</p>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+Virtuals AI © 2026
+<br><br>
+Predictions are statistical estimates and are not guaranteed.
+</footer>
+
+<script>
+function demo(){
+ document.getElementById("result").style.display="block";
+}
+
+function analyze(){
+ alert("Screenshot uploaded. Click Generate AI Prediction.");
+}
+</script>
+
+</body>
+</html>
