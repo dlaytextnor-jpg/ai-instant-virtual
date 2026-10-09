@@ -247,6 +247,94 @@ form.addEventListener("submit", function(event) {
     "The design is ready! Connect a secure authentication service to enable real accounts.";
 });
 </script>
+<script type="module">
+import { createClient } from
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
+const SUPABASE_URL =
+  "https://ygkkwepdatmbywsmktup.supabase.co";
+
+// Replace this text with your Supabase publishable key.
+const SUPABASE_PUBLISHABLE_KEY =
+  "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
+
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+let isSignup = false;
+
+const form = document.getElementById("authForm");
+const heading = document.getElementById("heading");
+const subtitle = document.getElementById("subtitle");
+const submitBtn = document.getElementById("submitBtn");
+const switchText = document.getElementById("switchText");
+const switchLink = document.getElementById("switchLink");
+const message = document.getElementById("message");
+
+switchLink.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  isSignup = !isSignup;
+
+  heading.textContent = isSignup
+    ? "Create account"
+    : "Welcome back";
+
+  subtitle.textContent = isSignup
+    ? "Create your account to explore Virtuals AI."
+    : "Sign in to access Virtuals AI and your predictions.";
+
+  submitBtn.textContent = isSignup ? "Sign up" : "Sign in";
+
+  switchText.textContent = isSignup
+    ? "Already have an account?"
+    : "Don't have an account?";
+
+  switchLink.textContent = isSignup ? "Sign in" : "Sign up";
+
+  message.textContent = "";
+});
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  submitBtn.disabled = true;
+  message.textContent = "Please wait...";
+
+  try {
+    if (isSignup) {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      message.textContent = data.session
+        ? "Account created successfully! You are signed in."
+        : "Account created! Check your email to confirm your account.";
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      message.textContent = "Sign in successful! Your account is connected.";
+    }
+  } catch (error) {
+    message.textContent = error.message;
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+</script>
 </body>
 </html>
+"PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
