@@ -3,686 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Virtuals AI</title>
-
+<title>AI Match Predictor</title>
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#080b14;
-  color:white;
-  min-height:100vh;
-}
-
-header{
-  height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 6%;
-  background:#0e1220;
-  border-bottom:1px solid #242a3b;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:22px;
-  font-weight:bold;
-}
-
-.logo-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:linear-gradient(135deg,#ff3d32,#ff7a18);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-}
-
-nav{
-  display:flex;
-  gap:25px;
-}
-
-nav a{
-  color:#aeb5c8;
-  text-decoration:none;
-  font-size:14px;
-}
-
-nav a.active,
-nav a:hover{
-  color:white;
-}
-
-.hero{
-  text-align:center;
-  padding:55px 20px 25px;
-}
-
-.badge{
-  display:inline-block;
-  background:#171d2e;
-  border:1px solid #30384e;
-  padding:8px 15px;
-  border-radius:30px;
-  color:#ff654b;
-  font-size:13px;
-  margin-bottom:18px;
-}
-
-.hero h1{
-  font-size:clamp(34px,6vw,62px);
-  margin-bottom:15px;
-}
-
-.hero h1 span{
-  color:#ff543c;
-}
-
-.hero p{
-  color:#aab1c2;
-  max-width:650px;
-  margin:auto;
-  line-height:1.6;
-}
-
-.container{
-  width:min(1050px,92%);
-  margin:30px auto 70px;
-}
-
-.card{
-  background:linear-gradient(145deg,#111625,#0d111d);
-  border:1px solid #252c3e;
-  border-radius:22px;
-  padding:30px;
-  box-shadow:0 15px 50px rgba(0,0,0,.25);
-  margin-bottom:25px;
-}
-
-.card h2{
-  margin-bottom:8px;
-}
-
-.subtitle{
-  color:#8e96aa;
-  font-size:14px;
-  margin-bottom:25px;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-label{
-  display:block;
-  color:#aeb5c8;
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-input{
-  width:100%;
-  padding:15px;
-  background:#080c15;
-  border:1px solid #30384d;
-  border-radius:12px;
-  color:white;
-  outline:none;
-  font-size:15px;
-}
-
-input:focus{
-  border-color:#ff553d;
-}
-
-button{
-  border:0;
-  cursor:pointer;
-  color:white;
-  font-weight:bold;
-}
-
-.generate{
-  width:100%;
-  margin-top:22px;
-  padding:16px;
-  border-radius:13px;
-  background:linear-gradient(90deg,#ff432f,#ff711d);
-  font-size:16px;
-  transition:.2s;
-}
-
-.generate:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.1);
-}
-
-.result{
-  display:none;
-  margin-top:25px;
-}
-
-.result.show{
-  display:block;
-}
-
-.prediction-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.ai-status{
-  color:#62e6a7;
-  font-size:13px;
-}
-
-.score{
-  text-align:center;
-  background:#080c15;
-  border:1px solid #2a3245;
-  border-radius:18px;
-  padding:25px;
-  margin-bottom:18px;
-}
-
-.score-value{
-  font-size:42px;
-  font-weight:bold;
-  color:#ff694d;
-  margin:8px 0;
-}
-
-.probabilities{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.prob{
-  background:#080c15;
-  border:1px solid #293145;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-}
-
-.prob .percent{
-  font-size:27px;
-  font-weight:bold;
-  margin:8px 0;
-}
-
-.prob small{
-  color:#8992a7;
-}
-
-.bar{
-  height:7px;
-  background:#252c3d;
-  border-radius:10px;
-  overflow:hidden;
-  margin-top:12px;
-}
-
-.bar span{
-  display:block;
-  height:100%;
-  background:linear-gradient(90deg,#ff4330,#ff8a25);
-}
-
-.history{
-  margin-top:15px;
-}
-
-.history-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px;
-  border-bottom:1px solid #22293a;
-  color:#c8cede;
-}
-
-.history-item:last-child{
-  border-bottom:0;
-}
-
-.empty{
-  color:#777f94;
-  text-align:center;
-  padding:20px;
-}
-
-.disclaimer{
-  color:#737b8f;
-  font-size:12px;
-  line-height:1.6;
-  margin-top:20px;
-  text-align:center;
-}
-
-footer{
-  border-top:1px solid #202637;
-  padding:30px 20px;
-  text-align:center;
-  color:#727a8d;
-  font-size:13px;
-}
-
-@media(max-width:700px){
-  nav{
-    display:none;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .probabilities{
-    grid-template-columns:1fr;
-  }
-
-  .card{
-    padding:20px;
-  }
-}
+*{box-sizing:border-box}
+body{margin:0;background:#07110d;color:#f4fff7;font-family:Arial,sans-serif}
+header{padding:22px 16px;background:#10251a;border-bottom:1px solid #24583a}
+h1{margin:0;color:#42f58d;font-size:25px}
+header p{color:#b7d6c2;font-size:13px}
+main{max-width:650px;margin:auto;padding:18px}
+.card{background:#102018;border:1px solid #254b36;border-radius:15px;padding:18px;margin-bottom:16px}
+h2{font-size:18px;margin-top:0}
+label{display:block;margin:12px 0 6px;color:#c8e5d1;font-size:14px}
+input,select,button{width:100%;padding:13px;border-radius:9px;border:1px solid #315a42;font-size:15px}
+input,select{background:#09160f;color:white}
+button{background:#35e77e;color:#062011;font-weight:bold;border:none;margin-top:14px;cursor:pointer}
+.result{display:none;background:#173b27;padding:15px;border-radius:10px;margin-top:15px;line-height:1.7}
+.small{font-size:12px;color:#a8c7b3;line-height:1.6}
+.stat{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #254333}
+footer{text-align:center;color:#9bb6a4;padding:25px;font-size:12px}
 </style>
 </head>
-
 <body>
-
 <header>
-  <div class="logo">
-    <div class="logo-icon">🤖</div>
-    Virtuals AI
-  </div>
-
-  <nav>
-    <a href="#" class="active">Games</a>
-    <a href="#plans">Plans</a>
-    <a href="#history">History</a>
-  </nav>
+<h1>⚽ AI MATCH PREDICTOR</h1>
+<p>Football statistics and match analysis</p>
 </header>
 
-<section class="hero">
-  <div class="badge">⚡ AI STATISTICAL ENGINE</div>
-
-  <h1>Virtual Football <span>Predictions</span></h1>
-
-  <p>
-    Enter two teams and generate a statistical estimate based on
-    simulated form, attacking strength and defensive strength.
-  </p>
+<main>
+<section class="card">
+<h2>🤖 Match Analysis</h2>
+<label for="home">Home team</label>
+<input id="home" placeholder="e.g. Arsenal">
+<label for="away">Away team</label>
+<input id="away" placeholder="e.g. Chelsea">
+<label for="homeGoals">Home team's average goals per match</label>
+<input id="homeGoals" type="number" min="0" max="10" step="0.1" value="1.5">
+<label for="awayGoals">Away team's average goals per match</label>
+<input id="awayGoals" type="number" min="0" max="10" step="0.1" value="1.2">
+<button onclick="predict()">ANALYSE MATCH</button>
+<div id="result" class="result"></div>
+<p class="small">Demonstration only: estimates use the averages you enter. This is not a trained AI model and cannot guarantee match outcomes.</p>
 </section>
 
-<main class="container">
+<section class="card">
+<h2>📊 Prediction History</h2>
+<div id="history" class="small">Your analyses will appear here.</div>
+<button onclick="clearHistory()">Clear History</button>
+</section>
 
-  <section class="card">
+<section class="card">
+<h2>👑 Premium Membership</h2>
+<p>Offer advanced statistics, saved analyses and detailed reports in a future paid version.</p>
+<p class="small">Payments are not enabled yet. Do not collect membership fees until payment processing and access controls are implemented.</p>
+</section>
 
-    <h2>Play Virtuals AI</h2>
-
-    <p class="subtitle">
-      Enter the match information below.
-    </p>
-
-    <div class="form-grid">
-
-      <div>
-        <label>Home Team</label>
-        <input id="homeTeam" placeholder="e.g. Manchester United">
-      </div>
-
-      <div>
-        <label>Away Team</label>
-        <input id="awayTeam" placeholder="e.g. Chelsea">
-      </div>
-
-      <div>
-        <label>Home Team Rating</label>
-        <input id="homeRating" type="number" min="1" max="100" value="70">
-      </div>
-
-      <div>
-        <label>Away Team Rating</label>
-        <input id="awayRating" type="number" min="1" max="100" value="70">
-      </div>
-
-    </div>
-
-    <button class="generate" onclick="generatePrediction()">
-      ⚡ Generate AI Prediction
-    </button>
-
-    <div id="result" class="result">
-
-      <div class="prediction-top">
-        <h2>AI Analysis</h2>
-        <span class="ai-status">● Analysis complete</span>
-      </div>
-
-      <div class="score">
-
-        <div id="matchName">Home vs Away</div>
-
-        <div class="score-value" id="scorePrediction">
-          2 - 1
-        </div>
-
-        <div style="color:#8d95a9">
-          Estimated score
-        </div>
-
-      </div>
-
-      <div class="probabilities">
-
-        <div class="prob">
-          <small>HOME WIN</small>
-          <div class="percent" id="homePercent">40%</div>
-          <div class="bar">
-            <span id="homeBar"></span>
-          </div>
-        </div>
-
-        <div class="prob">
-          <small>DRAW</small>
-          <div class="percent" id="drawPercent">30%</div>
-          <div class="bar">
-            <span id="drawBar"></span>
-          </div>
-        </div>
-
-        <div class="prob">
-          <small>AWAY WIN</small>
-          <div class="percent" id="awayPercent">30%</div>
-          <div class="bar">
-            <span id="awayBar"></span>
-          </div>
-        </div>
-
-      </div>
-
-      <p class="disclaimer">
-        These percentages are simulated statistical estimates for
-        demonstration purposes. They do not guarantee the result of
-        a football match.
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <section class="card" id="history">
-
-    <h2>Prediction History</h2>
-
-    <p class="subtitle">
-      Your recent predictions are stored in this browser.
-    </p>
-
-    <div id="historyList">
-      <div class="empty">
-        No predictions yet.
-      </div>
-    </div>
-
-  </section>
-
-
-  <section class="card" id="plans">
-
-    <h2>Plans</h2>
-
-    <p class="subtitle">
-      Example subscription layout for your future website.
-    </p>
-
-    <div class="probabilities">
-
-      <div class="prob">
-        <h3>Free</h3>
-        <div class="percent">$0</div>
-        <small>Basic predictions</small>
-      </div>
-
-      <div class="prob">
-        <h3>Pro</h3>
-        <div class="percent">$5</div>
-        <small>Advanced statistics</small>
-      </div>
-
-      <div class="prob">
-        <h3>Premium</h3>
-        <div class="percent">$20</div>
-        <small>Advanced analysis</small>
-      </div>
-
-    </div>
-
-  </section>
-
+<section class="card">
+<h2>💰 Grow Your Website</h2>
+<p class="small">Once you attract visitors, you can explore advertising, subscriptions and other legitimate revenue options. Earnings are not guaranteed.</p>
+</section>
 </main>
 
-
 <footer>
-  Virtuals AI © 2026
-  <br><br>
-  Predictions are statistical estimates and are not guaranteed.
+For information and entertainment only. No prediction guarantees a win.
 </footer>
 
-
 <script>
-
-function generatePrediction(){
-
-  const home =
-    document.getElementById("homeTeam").value.trim() || "Home Team";
-
-  const away =
-    document.getElementById("awayTeam").value.trim() || "Away Team";
-
-  let homeRating =
-    Number(document.getElementById("homeRating").value) || 70;
-
-  let awayRating =
-    Number(document.getElementById("awayRating").value) || 70;
-
-  homeRating = Math.max(1,Math.min(100,homeRating));
-  awayRating = Math.max(1,Math.min(100,awayRating));
-
-  /*
-    Simple demonstration model.
-
-    Home advantage is added to the home rating.
-    A small random factor prevents every prediction
-    from producing exactly the same result.
-  */
-
-  const homeStrength =
-    homeRating + 7 + Math.random() * 10;
-
-  const awayStrength =
-    awayRating + Math.random() * 10;
-
-  const difference =
-    homeStrength - awayStrength;
-
-  let homeProbability =
-    40 + difference * 0.55;
-
-  let awayProbability =
-    32 - difference * 0.45;
-
-  let drawProbability =
-    100 - homeProbability - awayProbability;
-
-  homeProbability =
-    Math.max(10,Math.min(75,homeProbability));
-
-  awayProbability =
-    Math.max(10,Math.min(65,awayProbability));
-
-  drawProbability =
-    Math.max(10,Math.min(45,drawProbability));
-
-  const total =
-    homeProbability +
-    drawProbability +
-    awayProbability;
-
-  homeProbability =
-    Math.round(homeProbability / total * 100);
-
-  drawProbability =
-    Math.round(drawProbability / total * 100);
-
-  awayProbability =
-    100 - homeProbability - drawProbability;
-
-
-  const homeGoals =
-    Math.max(
-      0,
-      Math.min(
-        5,
-        Math.round(1.2 + (homeStrength - 50) / 25 + Math.random() * 1.4)
-      )
-    );
-
-  const awayGoals =
-    Math.max(
-      0,
-      Math.min(
-        5,
-        Math.round(1.0 + (awayStrength - 50) / 28 + Math.random() * 1.4)
-      )
-    );
-
-
-  document.getElementById("matchName").textContent =
-    home + " vs " + away;
-
-  document.getElementById("scorePrediction").textContent =
-    homeGoals + " - " + awayGoals;
-
-  document.getElementById("homePercent").textContent =
-    homeProbability + "%";
-
-  document.getElementById("drawPercent").textContent =
-    drawProbability + "%";
-
-  document.getElementById("awayPercent").textContent =
-    awayProbability + "%";
-
-  document.getElementById("homeBar").style.width =
-    homeProbability + "%";
-
-  document.getElementById("drawBar").style.width =
-    drawProbability + "%";
-
-  document.getElementById("awayBar").style.width =
-    awayProbability + "%";
-
-
-  document.getElementById("result").classList.add("show");
-
-
-  saveHistory(
-    home,
-    away,
-    homeGoals + " - " + awayGoals
-  );
+const key = "matchPredictorHistory";
+function predict(){
+ const home=document.getElementById("home").value.trim();
+ const away=document.getElementById("away").value.trim();
+ const hg=Number(document.getElementById("homeGoals").value);
+ const ag=Number(document.getElementById("awayGoals").value);
+ if(!home||!away){alert("Enter both team names.");return;}
+ if(!document.getElementById("homeGoals").value||
+    !document.getElementById("awayGoals").value||
+    hg<0||ag<0||hg>10||ag>10){
+   alert("Enter valid goal averages from 0 to 10.");return;
+ }
+ let outcome="Draw";
+ if(hg>ag+0.2)outcome=home+" may have the advantage";
+ else if(ag>hg+0.2)outcome=away+" may have the advantage";
+ const entry={home,away,hg,ag,outcome,date:new Date().toLocaleString()};
+ document.getElementById("result").style.display="block";
+ document.getElementById("result").innerHTML=
+ "<strong>Analysis result</strong><br>"+home+": "+hg+
+ " average goals<br>"+away+": "+ag+
+ " average goals<br><strong>"+outcome+"</strong>"+
+ "<br><small>This simple comparison is not a reliable probability forecast.</small>";
+ let list=JSON.parse(localStorage.getItem(key)||"[]");
+ list.unshift(entry);
+ localStorage.setItem(key,JSON.stringify(list.slice(0,10)));
+ showHistory();
 }
-
-
-function saveHistory(home,away,score){
-
-  const oldHistory =
-    JSON.parse(localStorage.getItem("virtualsHistory") || "[]");
-
-  oldHistory.unshift({
-    home:home,
-    away:away,
-    score:score
-  });
-
-  oldHistory.splice(10);
-
-  localStorage.setItem(
-    "virtualsHistory",
-    JSON.stringify(oldHistory)
-  );
-
-  displayHistory();
+function showHistory(){
+ let list=JSON.parse(localStorage.getItem(key)||"[]");
+ document.getElementById("history").innerHTML=list.length?
+ list.map(x=>"<div class='stat'><span>"+
+ escapeText(x.home)+" vs "+escapeText(x.away)+
+ "<br><small>"+escapeText(x.date)+"</small></span><span>"+
+ escapeText(x.outcome)+"</span></div>").join(""):
+ "Your analyses will appear here.";
 }
-
-
-function displayHistory(){
-
-  const list =
-    document.getElementById("historyList");
-
-  const history =
-    JSON.parse(localStorage.getItem("virtualsHistory") || "[]");
-
-  if(history.length === 0){
-
-    list.innerHTML =
-      '<div class="empty">No predictions yet.</div>';
-
-    return;
-  }
-
-  list.innerHTML = history.map(item => {
-
-    return `
-      <div class="history-item">
-        <span>${escapeHtml(item.home)}
-        <strong> vs </strong>
-        ${escapeHtml(item.away)}</span>
-
-        <strong>${escapeHtml(item.score)}</strong>
-      </div>
-    `;
-
-  }).join("");
+function escapeText(s){
+ return String(s).replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",
+ '"':"&quot;","'":"&#39;"
+ })[c]);
 }
-
-
-function escapeHtml(text){
-
-  const div = document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
+function clearHistory(){
+ if(confirm("Delete all saved analyses?")){
+ localStorage.removeItem(key);showHistory();
+ }
 }
-
-
-displayHistory();
-
+showHistory();
 </script>
-
 </body>
 </html>
