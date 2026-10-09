@@ -3,119 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Match Predictor</title>
+<title>Instant Virtuals AI</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#07110d;color:#f4fff7;font-family:Arial,sans-serif}
-header{padding:22px 16px;background:#10251a;border-bottom:1px solid #24583a}
-h1{margin:0;color:#42f58d;font-size:25px}
-header p{color:#b7d6c2;font-size:13px}
-main{max-width:650px;margin:auto;padding:18px}
-.card{background:#102018;border:1px solid #254b36;border-radius:15px;padding:18px;margin-bottom:16px}
-h2{font-size:18px;margin-top:0}
-label{display:block;margin:12px 0 6px;color:#c8e5d1;font-size:14px}
-input,select,button{width:100%;padding:13px;border-radius:9px;border:1px solid #315a42;font-size:15px}
-input,select{background:#09160f;color:white}
-button{background:#35e77e;color:#062011;font-weight:bold;border:none;margin-top:14px;cursor:pointer}
-.result{display:none;background:#173b27;padding:15px;border-radius:10px;margin-top:15px;line-height:1.7}
-.small{font-size:12px;color:#a8c7b3;line-height:1.6}
-.stat{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #254333}
-footer{text-align:center;color:#9bb6a4;padding:25px;font-size:12px}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 28px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #202020;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 21px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.badge {
+  background: linear-gradient(#ff7777, #f00016, #a80010);
+  border: 1px solid #ff7777;
+  border-radius: 16px;
+  padding: 15px 12px;
+  box-shadow: 0 0 20px #ff001533;
+}
+
+.logo span {
+  color: #ff2438;
+}
+
+.home {
+  color: #ffd35b;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 65px 22px 35px;
+}
+
+.eyebrow {
+  color: #ffd15a;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 35px;
+  margin: 22px 0;
+}
+
+.subtitle {
+  text-align: center;
+  color: #aaa8b3;
+  line-height: 1.6;
+  font-size: 16px;
+  margin-bottom: 55px;
+}
+
+.card {
+  background: linear-gradient(145deg, #151515, #101010);
+  border: 1px solid #343434;
+  border-radius: 25px;
+  padding: 28px 22px;
+  box-shadow: 0 15px 40px #ff00100d;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+input {
+  width: 100%;
+  padding: 18px;
+  margin-bottom: 28px;
+  background: #202020;
+  color: white;
+  border: 1px solid #383838;
+  border-radius: 22px;
+  font-size: 16px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #ff2638;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 22px;
+  padding: 19px;
+  color: white;
+  background: linear-gradient(#ff3039, #ec000b);
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 28px #ff001733;
+}
+
+.switch {
+  text-align: center;
+  color: #aaa8b3;
+  margin-top: 38px;
+  line-height: 1.8;
+}
+
+.switch a {
+  color: #ffd15a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.message {
+  margin-top: 18px;
+  color: #ffd15a;
+  text-align: center;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  padding: 25px;
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>⚽ AI MATCH PREDICTOR</h1>
-<p>Football statistics and match analysis</p>
+  <div class="logo">
+    <div class="badge">IV</div>
+    <div>INSTANT <span>VIRTUALS</span></div>
+  </div>
+  <a class="home" href="index.html">Back to home</a>
 </header>
 
 <main>
-<section class="card">
-<h2>🤖 Match Analysis</h2>
-<label for="home">Home team</label>
-<input id="home" placeholder="e.g. Arsenal">
-<label for="away">Away team</label>
-<input id="away" placeholder="e.g. Chelsea">
-<label for="homeGoals">Home team's average goals per match</label>
-<input id="homeGoals" type="number" min="0" max="10" step="0.1" value="1.5">
-<label for="awayGoals">Away team's average goals per match</label>
-<input id="awayGoals" type="number" min="0" max="10" step="0.1" value="1.2">
-<button onclick="predict()">ANALYSE MATCH</button>
-<div id="result" class="result"></div>
-<p class="small">Demonstration only: estimates use the averages you enter. This is not a trained AI model and cannot guarantee match outcomes.</p>
-</section>
+  <div class="eyebrow">INSTANT VIRTUALS · PREDICTIONS</div>
 
-<section class="card">
-<h2>📊 Prediction History</h2>
-<div id="history" class="small">Your analyses will appear here.</div>
-<button onclick="clearHistory()">Clear History</button>
-</section>
+  <h1 id="heading">Welcome back</h1>
 
-<section class="card">
-<h2>👑 Premium Membership</h2>
-<p>Offer advanced statistics, saved analyses and detailed reports in a future paid version.</p>
-<p class="small">Payments are not enabled yet. Do not collect membership fees until payment processing and access controls are implemented.</p>
-</section>
+  <p class="subtitle" id="subtitle">
+    Sign in to access Virtuals AI and your predictions.
+  </p>
 
-<section class="card">
-<h2>💰 Grow Your Website</h2>
-<p class="small">Once you attract visitors, you can explore advertising, subscriptions and other legitimate revenue options. Earnings are not guaranteed.</p>
-</section>
+  <div class="card">
+    <form id="authForm">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        minlength="6"
+        required
+      >
+
+      <button type="submit" id="submitBtn">Sign in</button>
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+
+  <div class="switch">
+    <span id="switchText">Don't have an account?</span>
+    <a href="#" id="switchLink">Sign up</a>
+  </div>
 </main>
 
 <footer>
-For information and entertainment only. No prediction guarantees a win.
+  INSTANT VIRTUALS AI · Football predictions for information only.
 </footer>
 
 <script>
-const key = "matchPredictorHistory";
-function predict(){
- const home=document.getElementById("home").value.trim();
- const away=document.getElementById("away").value.trim();
- const hg=Number(document.getElementById("homeGoals").value);
- const ag=Number(document.getElementById("awayGoals").value);
- if(!home||!away){alert("Enter both team names.");return;}
- if(!document.getElementById("homeGoals").value||
-    !document.getElementById("awayGoals").value||
-    hg<0||ag<0||hg>10||ag>10){
-   alert("Enter valid goal averages from 0 to 10.");return;
- }
- let outcome="Draw";
- if(hg>ag+0.2)outcome=home+" may have the advantage";
- else if(ag>hg+0.2)outcome=away+" may have the advantage";
- const entry={home,away,hg,ag,outcome,date:new Date().toLocaleString()};
- document.getElementById("result").style.display="block";
- document.getElementById("result").innerHTML=
- "<strong>Analysis result</strong><br>"+home+": "+hg+
- " average goals<br>"+away+": "+ag+
- " average goals<br><strong>"+outcome+"</strong>"+
- "<br><small>This simple comparison is not a reliable probability forecast.</small>";
- let list=JSON.parse(localStorage.getItem(key)||"[]");
- list.unshift(entry);
- localStorage.setItem(key,JSON.stringify(list.slice(0,10)));
- showHistory();
-}
-function showHistory(){
- let list=JSON.parse(localStorage.getItem(key)||"[]");
- document.getElementById("history").innerHTML=list.length?
- list.map(x=>"<div class='stat'><span>"+
- escapeText(x.home)+" vs "+escapeText(x.away)+
- "<br><small>"+escapeText(x.date)+"</small></span><span>"+
- escapeText(x.outcome)+"</span></div>").join(""):
- "Your analyses will appear here.";
-}
-function escapeText(s){
- return String(s).replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",
- '"':"&quot;","'":"&#39;"
- })[c]);
-}
-function clearHistory(){
- if(confirm("Delete all saved analyses?")){
- localStorage.removeItem(key);showHistory();
- }
-}
-showHistory();
+let isSignup = false;
+
+const form = document.getElementById("authForm");
+const heading = document.getElementById("heading");
+const subtitle = document.getElementById("subtitle");
+const submitBtn = document.getElementById("submitBtn");
+const switchText = document.getElementById("switchText");
+const switchLink = document.getElementById("switchLink");
+const message = document.getElementById("message");
+
+switchLink.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  isSignup = !isSignup;
+
+  heading.textContent = isSignup ? "Create account" : "Welcome back";
+
+  subtitle.textContent = isSignup
+    ? "Create your account to explore Virtuals AI."
+    : "Sign in to access Virtuals AI and your predictions.";
+
+  submitBtn.textContent = isSignup ? "Sign up" : "Sign in";
+
+  switchText.textContent = isSignup
+    ? "Already have an account?"
+    : "Don't have an account?";
+
+  switchLink.textContent = isSignup ? "Sign in" : "Sign up";
+
+  message.textContent = "";
+});
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  message.textContent =
+    "The design is ready! Connect a secure authentication service to enable real accounts.";
+});
 </script>
+
 </body>
 </html>
